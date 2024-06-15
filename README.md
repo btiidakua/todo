@@ -30,30 +30,55 @@
   - 11.2.6.3.2. TodoRepositoryImplの作成
   - 11.2.6.3.3. Mapperファイルの作成
 
+  ただし、`todo-infra.properties`の設定値はガイドラインのままではなく、以下PostgreSQL用の値を利用すること。
+  ```property
+  database=POSTGRESQL
+  database.url=jdbc:postgresql://localhost:5432/(データベース名)
+  database.username=postgres
+  database.password=postgres
+  database.driverClassName=org.postgresql.Driver
+  cp.maxActive=96
+  cp.maxIdle=16
+  cp.minIdle=0
+  cp.maxWait=60000
+  ```
+
 ## 拡張課題
 ### 目的
 - ガイドラインの目次レベルで優先的に覚えてほしい機能を学ぶ
 - ガイドラインやWEB検索による情報の探し方を身に着ける
 ### 検討事項
 - 課題のお題目は何にするか?
-  - 優先度高(一般的な業務で利用する機能)
-    - 入力チェック
+  - 優先度高(一般的な業務でよく利用する機能)
     - データベースアクセス（MyBatis3編）
-    - 二重送信防止
+    - 入力チェック
+    - 日付操作(JSR-310 Date and Time API)
     - メッセージ管理
     - ロギング
-  - 優先度中(業務で利用する場合がある機能)
+    - 二重送信防止
     - 例外ハンドリング
-    - ページネーション
     - セッション管理
-    - コードリスト
     - 排他制御
+  - 優先度中(業務で利用する場合がある機能)
+    - 単体テスト
+    - ページネーション
+    - コードリスト
     - プロパティ管理
     - ボイラープレートコードの排除(Lombok)
-  - 優先度低(AP基盤が触るような機能＋難しい機能など)
     - Beanマッピング(MapStruct)
-    - 単体テスト
+    - 国際化
+    - 文字列処理
+  - 優先度低(AP基盤が触るような機能＋難しい機能など)
+    - ファイルアップロード
+    - ファイルダウンロード
+    - ヘルスチェック
+    - E-mail送信(SMTP)
+    - JMS(Jakarta Messaging)
     - Ajax
-    - XSS対策
+    - REST
     - 認証
     - 認可
+    - CSRF対策
+    - XSS対策
+    - 暗号化
+    - OAuth 2.0
