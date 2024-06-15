@@ -56,7 +56,6 @@ public class TodoController {
         try {
             todoService.create(todo);
         } catch (BusinessException e) {
-
             model.addAttribute(e.getResultMessages());
             return list(model);
         }
