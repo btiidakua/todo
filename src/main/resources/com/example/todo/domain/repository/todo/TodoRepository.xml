@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- (1) -->
 <mapper namespace="com.example.todo.domain.repository.todo.TodoRepository">
@@ -20,7 +19,9 @@
             todo_id,
             todo_title,
             finished,
-            created_at
+            created_at,
+            start_date,
+            limit_date
         FROM
             todo
         WHERE
@@ -35,7 +36,9 @@
             todo_id,
             todo_title,
             finished,
-            created_at
+            created_at,
+            start_date,
+            limit_date
         FROM
             todo
     ]]>
@@ -49,14 +52,18 @@
             todo_id,
             todo_title,
             finished,
-            created_at
+            created_at,
+            start_date,
+            limit_date
         )
         VALUES
         (
             #{todoId},
             #{todoTitle},
             #{finished},
-            #{createdAt}
+            #{createdAt},
+            #{startDate},
+            #{limitDate}
         )
     ]]>
     </insert>

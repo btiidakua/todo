@@ -17,7 +17,12 @@
             </ul>
         </div>
         <form action="/todo/create" th:action="@{/todo/create}" method="post">
+            <label>タイトル:</label>
             <input type="text" th:field="${todoForm.todoTitle}" />
+            <label>開始日:</label>
+            <input type="text" th:field="${todoForm.startDate}" />
+            <label>期限:</label>
+            <input type="text" th:field="${todoForm.limitDate}" />
             <span id="todoTitle.errors" th:errors="${todoForm.todoTitle}" class="text-error">size must be between 1 and
                 30</span>
             <button>Create Todo</button>
@@ -28,6 +33,9 @@
         <ul th:remove="all-but-first">
             <li th:each="todo : ${todos}">
                 <span th:class="${todo.finished} ? 'strike'" th:text="${todo.todoTitle}">Send a e-mail</span>
+                <span th:text="${#temporals.format(todo.startDate, 'uuuu/MM/dd')}">2024/07/01</span>
+                <span>~</span>
+                <span th:text="${#temporals.format(todo.limitDate, 'uuuu/MM/dd')}">2024/07/31</span>
                 <form th:if="${!todo.finished}" action="/todo/finish" th:action="@{/todo/finish}" method="post"
                     class="inline">
                     <input type="hidden" name="todoId" th:value="${todo.todoId}" />
