@@ -71,7 +71,7 @@ TODOに開始日、期限の項目を追加しよう！
    }
    ```
 
-3. `TodoMapper.java`にアノテーションを追加する
+3. 開始日はBeanマッピングの対象外として手動で値の詰め替えを行うため、`TodoMapper.java`にアノテーションを追加する
    ```java
    @Mapper
    public interface TodoMapper {
