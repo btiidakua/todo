@@ -1,6 +1,10 @@
 package com.example.todo.app.todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
+import java.util.Locale;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +35,9 @@ public class TodoController {
     @Inject
     TodoMapper beanMapper;
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+            .withLocale(Locale.JAPANESE).withResolverStyle(ResolverStyle.STRICT);
+
     @ModelAttribute
     public TodoForm setUpForm() {
         TodoForm form = new TodoForm();
@@ -53,6 +60,8 @@ public class TodoController {
         }
 
         Todo todo = beanMapper.map(todoForm);
+        todo.setStartDate(LocalDate.parse(todoForm.getStartDate(), formatter));
+        todo.setLimitDate(LocalDate.parse(todoForm.getLimitDate(), formatter));
         try {
             todoService.create(todo);
         } catch (BusinessException e) {

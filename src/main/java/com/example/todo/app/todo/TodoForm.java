@@ -24,6 +24,10 @@ public class TodoForm implements Serializable {
     @Size(min = 1, max = 30, groups = {TodoCreate.class})
     private String todoTitle;
 
+    private String startDate;
+
+    private String limitDate;
+
     public String getTodoId() {
         return todoId;
     }
@@ -40,4 +44,19 @@ public class TodoForm implements Serializable {
         this.todoTitle = todoTitle;
     }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getLimitDate() {
+        return limitDate;
+    }
+
+    public void setLimitDate(String limitDate) {
+        this.limitDate = limitDate;
+    }
 }

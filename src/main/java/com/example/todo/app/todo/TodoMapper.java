@@ -8,5 +8,7 @@ import com.example.todo.domain.model.Todo;
 public interface TodoMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "finished", ignore = true)
+    @Mapping(target = "startDate", ignore = true)
+    @Mapping(target = "limitDate", ignore = true)
     Todo map(TodoForm form);
 }
