@@ -1,6 +1,7 @@
 package com.example.todo.domain.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Todo implements Serializable {
@@ -14,6 +15,10 @@ public class Todo implements Serializable {
     private boolean finished;
 
     private Date createdAt;
+
+    private LocalDate startDate;
+
+    private LocalDate limitDate;
 
     public String getTodoId() {
         return todoId;
@@ -45,5 +50,21 @@ public class Todo implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getLimitDate() {
+        return limitDate;
+    }
+
+    public void setLimitDate(LocalDate limitDate) {
+        this.limitDate = limitDate;
     }
 }
