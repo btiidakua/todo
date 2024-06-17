@@ -39,6 +39,11 @@ public class TodoServiceImpl implements TodoService {
             throw new BusinessException(messages);
         }
 
+        if (todo.getLimitDate().isBefore(todo.getStartDate())) {
+            ResultMessages messages = ResultMessages.error();
+            messages.add(ResultMessage.fromText("開始日が期限より後になっています."));
+            throw new BusinessException(messages);
+        }
         String todoId = UUID.randomUUID().toString();
         Date createdAt = new Date();
 
