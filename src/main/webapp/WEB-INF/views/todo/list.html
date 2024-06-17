@@ -25,6 +25,8 @@
             <input type="text" th:field="${todoForm.limitDate}" />
             <span id="todoTitle.errors" th:errors="${todoForm.todoTitle}" class="text-error">size must be between 1 and
                 30</span>
+            <span id="startDate.errors" th:errors="${todoForm.startDate}" class="text-error"></span>
+            <span id="limitDate.errors" th:errors="${todoForm.limitDate}" class="text-error"></span>
             <button>Create Todo</button>
         </form>
     </div>
