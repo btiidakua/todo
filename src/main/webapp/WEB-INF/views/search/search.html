@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Todo Search</title>
+    <link rel="stylesheet" href="../../../resources/app/css/styles.css" th:href="@{/resources/app/css/styles.css}">
+</head>
+
+<body>
+    <div id="header" th:replace="~{common/layout/header :: header}"></div>
+    <h1>Todo Search</h1>
+    <div id="searchForm">
+        <div th:if="${resultMessages} != null" class="alert alert-success"
+            th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}" th:text="${message.text}"></li>
+            </ul>
+        </div>
+        <form action="/search" th:action="@{/search}" method="post" th:object="${searchForm}">
+            <label>タイトル:</label>
+            <input type="text" th:field="*{todoTitle}" />
+            <span>(部分一致検索)</span>
+            <br>
+            <label>開始日~期限:</label>
+            <input type="text" th:field="*{startDate}" />
+            <span>~</span>
+            <input type="text" th:field="*{limitDate}" />
+            <br>
+            <label>完了タスクも含む</label>
+            <input type="checkbox" th:field="*{finished}">
+            <br>
+            <span id="todoTitle.errors" th:errors="*{todoTitle}" class="text-error"></span>
+            <span id="startDate.errors" th:errors="*{startDate}" class="text-error"></span>
+            <span id="limitDate.errors" th:errors="*{limitDate}" class="text-error"></span>
+            <button>Search Todo</button>
+        </form>
+    </div>
+    <hr />
+    <div id="todoList">
+        <ul th:remove="all-but-first">
+            <li th:each="todo : ${todos}">
+                <span th:class="${todo.finished} ? 'strike'" th:text="${todo.todoTitle}"></span>
+                <span th:text="${#temporals.format(todo.startDate, 'uuuu/MM/dd')}"></span>
+                <span>~</span>
+                <span th:text="${#temporals.format(todo.limitDate, 'uuuu/MM/dd')}"></span>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

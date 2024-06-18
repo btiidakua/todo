@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <div id="header" th:replace="~{common/layout/header :: header}"></div>
     <h1>Todo List</h1>
     <div id="todoForm">
         <div th:if="${resultMessages} != null" class="alert alert-success"

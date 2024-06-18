@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- (1) -->
 <mapper namespace="com.example.todo.domain.repository.todo.TodoRepository">
 
-    <!-- (2) -->
     <resultMap id="todoResultMap" type="Todo">
         <id property="todoId" column="todo_id" />
         <result property="todoTitle" column="todo_title" />
@@ -12,7 +10,6 @@
         <result property="createdAt" column="created_at" />
     </resultMap>
 
-    <!-- (3) -->
     <select id="findById" parameterType="String" resultMap="todoResultMap">
     <![CDATA[
         SELECT
@@ -29,7 +26,6 @@
     ]]>
     </select>
 
-    <!-- (4) -->
     <select id="findAll" resultMap="todoResultMap">
     <![CDATA[
         SELECT
@@ -44,7 +40,6 @@
     ]]>
     </select>
 
-    <!-- (5) -->
     <insert id="create" parameterType="Todo">
     <![CDATA[
         INSERT INTO todo
@@ -68,7 +63,6 @@
     ]]>
     </insert>
 
-    <!-- (6) -->
     <update id="update" parameterType="Todo">
     <![CDATA[
         UPDATE todo
@@ -81,7 +75,6 @@
     ]]>
     </update>
 
-    <!-- (7) -->
     <delete id="delete" parameterType="Todo">
     <![CDATA[
         DELETE FROM
@@ -91,7 +84,6 @@
     ]]>
     </delete>
 
-    <!-- (8) -->
     <select id="countByFinished" parameterType="Boolean"
         resultType="Long">
     <![CDATA[
@@ -104,4 +96,31 @@
     ]]>
     </select>
 
+    <select id="findByCriteria" parameterType="TodoCriteria" resultMap="todoResultMap">
+        <bind name="todoTitleContainingCondition"
+          value="@org.terasoluna.gfw.common.query.QueryEscapeUtils@toContainingCondition(todoTitle)" />
+            SELECT
+                todo_id,
+                todo_title,
+                finished,
+                created_at,
+                start_date,
+                limit_date
+            FROM
+                todo
+            <where>
+                <if test="todoTitle != null">
+                    todo_title LIKE #{todoTitleContainingCondition} || '%' ESCAPE '~'
+                </if>
+                <if test="!finished">
+                    AND finished = false
+                </if>
+                <if test="startDate != null">
+                    AND start_date <![CDATA[ >= ]]> #{startDate}
+                </if>
+                <if test="limitDate != null">
+                    AND limit_date <![CDATA[ <= ]]> #{limitDate}
+                </if>
+            </where>
+    </select>
 </mapper>

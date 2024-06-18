@@ -2,7 +2,6 @@ package com.example.todo.domain.repository.todo;
 
 import java.util.Collection;
 import java.util.Optional;
-
 import com.example.todo.domain.model.Todo;
 
 public interface TodoRepository {
@@ -17,4 +16,6 @@ public interface TodoRepository {
     void delete(Todo todo);
 
     long countByFinished(boolean finished);
+
+    Collection<Todo> findByCriteria(TodoCriteria criteria);
 }
