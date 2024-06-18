@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+<head>
+<title>header</title>
+</head>
+<body>
+    <div th:fragment="header" th:remove="tag">
+        <ul>
+            <li><a th:href="@{/todo/list}">TODO登録・更新・削除</a></li>
+            <li><a th:href="@{/search}">TOOD検索</a></li>
+        </ul>
+    </div>
+</body>
+</html>

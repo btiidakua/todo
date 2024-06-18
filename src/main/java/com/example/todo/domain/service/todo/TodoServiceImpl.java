@@ -10,6 +10,7 @@ import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import com.example.todo.domain.model.Todo;
+import com.example.todo.domain.repository.todo.TodoCriteria;
 import com.example.todo.domain.repository.todo.TodoRepository;
 import jakarta.inject.Inject;
 
@@ -83,5 +84,10 @@ public class TodoServiceImpl implements TodoService {
                     .fromText("[E404] The requested Todo is not found. (id=" + todoId + ")"));
             return new ResourceNotFoundException(messages);
         });
+    }
+
+    @Override
+    public Collection<Todo> findByCriteria(TodoCriteria criteria) {
+        return todoRepository.findByCriteria(criteria);
     }
 }
