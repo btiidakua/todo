@@ -4,14 +4,6 @@
 - Controller、Service、Repositoryといった各部品、レイヤの役割を学ぶ
 - 基本的なCRUD操作について一通り触れる
 
-### 検討事項
-- JSP or Thymeleaf?
-  - 流石にJSPは古いかも
-- H2 or Postgres?
-  - 製造中はH2でも良いかもだけど、最終的にPostgresにするなら最初からPostgresでも良い気がする
-- JavaConfig or XmlConfig?
-  - 最新のガイドラインはちょっとBootチックにJavaConfig対応してたので、そっちのほうが今っぽいかも
-
 ### 進め方
 [TERASOLUNAガイドライン 11.2. チュートリアル(Todoアプリケーション Thymeleaf編)](https://terasolunaorg.github.io/guideline/current/ja/Tutorial/TutorialTodoThymeleaf.html)を参照して進めていく。  
 環境による分岐や読み飛ばす章は以下の通り。
@@ -47,6 +39,19 @@
 ### 目的
 - ガイドラインの目次レベルで優先的に覚えてほしい機能を学ぶ
 - ガイドラインやWEB検索による情報の探し方を身に着ける
+
+### 進め方
+以下の課題を上から順番に実施する。
+1. [日付操作](/extended/datetime/README.md)
+2. [入力チェック(単項目チェック)](/extended/validation/README.md)
+3. [データベースアクセス](/extended/dbaccess/README.md)
+4. メッセージ管理
+5. ロギング
+6. 排他制御
+7. セッション管理
+8. 二重送信防止
+9. 例外ハンドリング
+
 ### 検討事項
 - 課題のお題目は何にするか?
   - 優先度高(一般的な業務でよく利用する機能)
@@ -60,7 +65,7 @@
     - セッション管理
     - 排他制御
   - 優先度中(業務で利用する場合がある機能)
-    - 単体テスト
+    - REST
     - ページネーション
     - コードリスト
     - プロパティ管理
@@ -75,10 +80,11 @@
     - E-mail送信(SMTP)
     - JMS(Jakarta Messaging)
     - Ajax
-    - REST
     - 認証
     - 認可
     - CSRF対策
     - XSS対策
     - 暗号化
     - OAuth 2.0
+  - 対象外
+    - 単体テスト ⇒ JUnitハンズオンで実施
