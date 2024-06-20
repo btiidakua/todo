@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Todo List</title>
+    <title th:text="#{title.todo.list}">Todo List</title>
     <link rel="stylesheet" href="../../../resources/app/css/styles.css" th:href="@{/resources/app/css/styles.css}">
 </head>
 
@@ -14,15 +14,17 @@
         <div th:if="${resultMessages} != null" class="alert alert-success"
             th:class="|alert alert-${resultMessages.type}|">
             <ul>
-                <li th:each="message : ${resultMessages}" th:text="${message.text}">Created successfully!</li>
+                <li th:each="message : ${resultMessages}"
+                        th:text="${message.code} != null ? ${#messages.msgWithParams(message.code, message.args)} :
+                        ${message.text}"></li>
             </ul>
         </div>
         <form action="/todo/create" th:action="@{/todo/create}" method="post">
-            <label>タイトル:</label>
+            <label th:text="#{label.td.todo.todoTitle}">タイトル:</label>
             <input type="text" th:field="${todoForm.todoTitle}" />
-            <label>開始日:</label>
+            <label th:text="#{label.td.todo.startDate}">開始日:</label>
             <input type="text" th:field="${todoForm.startDate}" />
-            <label>期限:</label>
+            <label th:text="#{label.td.todo.limitDate}">期限:</label>
             <input type="text" th:field="${todoForm.limitDate}" />
             <span id="todoTitle.errors" th:errors="${todoForm.todoTitle}" class="text-error">size must be between 1 and
                 30</span>

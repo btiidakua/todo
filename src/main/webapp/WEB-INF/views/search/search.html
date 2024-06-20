@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Todo Search</title>
+    <title th:text="#{title.search.search}">Todo Search</title>
     <link rel="stylesheet" href="../../../resources/app/css/styles.css" th:href="@{/resources/app/css/styles.css}">
 </head>
 
@@ -14,20 +14,22 @@
         <div th:if="${resultMessages} != null" class="alert alert-success"
             th:class="|alert alert-${resultMessages.type}|">
             <ul>
-                <li th:each="message : ${resultMessages}" th:text="${message.text}"></li>
+                <li th:each="message : ${resultMessages}"
+                        th:text="${message.code} != null ? ${#messages.msgWithParams(message.code, message.args)} :
+                        ${message.text}"></li>
             </ul>
         </div>
         <form action="/search" th:action="@{/search}" method="post" th:object="${searchForm}">
-            <label>タイトル:</label>
+            <label th:text="#{label.td.search.todoTitle}">タイトル:</label>
             <input type="text" th:field="*{todoTitle}" />
-            <span>(部分一致検索)</span>
+            <span th:text="#{label.td.search.todoTitle.annotation}">(部分一致検索)</span>
             <br>
-            <label>開始日~期限:</label>
+            <label th:text="#{label.td.search.date}">開始日~期限:</label>
             <input type="text" th:field="*{startDate}" />
             <span>~</span>
             <input type="text" th:field="*{limitDate}" />
             <br>
-            <label>完了タスクも含む</label>
+            <label th:text="#{label.td.search.finished}">完了タスクも含む</label>
             <input type="checkbox" th:field="*{finished}">
             <br>
             <span id="todoTitle.errors" th:errors="*{todoTitle}" class="text-error"></span>
