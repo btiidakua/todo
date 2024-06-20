@@ -23,7 +23,7 @@
   - 11.2.6.3.3. Mapperファイルの作成
 
   ただし、`todo-infra.properties`の設定値はガイドラインのままではなく、以下PostgreSQL用の値を利用すること。
-  ```property
+  ```properties
   database=POSTGRESQL
   database.url=jdbc:postgresql://localhost:5432/(データベース名)
   database.username=postgres
@@ -45,7 +45,7 @@
 1. [日付操作](/extended/datetime/README.md)
 2. [入力チェック(単項目チェック)](/extended/validation/README.md)
 3. [データベースアクセス](/extended/dbaccess/README.md)
-4. メッセージ管理
+4. [メッセージ管理](/extended/message/README.md)
 5. ロギング
 6. 排他制御
 7. セッション管理

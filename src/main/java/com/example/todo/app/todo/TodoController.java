@@ -68,7 +68,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromText("Created successfully!")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0000")));
         return "redirect:/todo/list";
     }
 
@@ -88,7 +88,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromText("Finished successfully!")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0001")));
         return "redirect:/todo/list";
     }
 
@@ -109,7 +109,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromText("Deleted successfully!")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0002")));
         return "redirect:/todo/list";
     }
 }

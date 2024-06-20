@@ -35,14 +35,13 @@ public class TodoServiceImpl implements TodoService {
         if (unfinishedCount >= MAX_UNFINISHED_COUNT) {
             ResultMessages messages = ResultMessages.error();
             messages.add(
-                    ResultMessage.fromText("[E001] The count of un-finished Todo must not be over "
-                            + MAX_UNFINISHED_COUNT + "."));
+                    ResultMessage.fromCode("e.td.td.8000", MAX_UNFINISHED_COUNT));
             throw new BusinessException(messages);
         }
 
         if (todo.getLimitDate().isBefore(todo.getStartDate())) {
             ResultMessages messages = ResultMessages.error();
-            messages.add(ResultMessage.fromText("開始日が期限より後になっています."));
+            messages.add(ResultMessage.fromCode("e.td.td.8001"));
             throw new BusinessException(messages);
         }
         String todoId = UUID.randomUUID().toString();
@@ -62,8 +61,7 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = findOne(todoId);
         if (todo.isFinished()) {
             ResultMessages messages = ResultMessages.error();
-            messages.add(ResultMessage.fromText(
-                    "[E002] The requested Todo is already finished. (id=" + todoId + ")"));
+            messages.add(ResultMessage.fromCode("e.td.td.8002", todoId));
             throw new BusinessException(messages);
         }
         todo.setFinished(true);
@@ -80,8 +78,7 @@ public class TodoServiceImpl implements TodoService {
     private Todo findOne(String todoId) {
         return todoRepository.findById(todoId).orElseThrow(() -> {
             ResultMessages messages = ResultMessages.error();
-            messages.add(ResultMessage
-                    .fromText("[E404] The requested Todo is not found. (id=" + todoId + ")"));
+            messages.add(ResultMessage.fromCode("e.td.td.8003", todoId));
             return new ResourceNotFoundException(messages);
         });
     }
