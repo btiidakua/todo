@@ -68,7 +68,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0000")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.sc.0000")));
         return "redirect:/todo/list";
     }
 
@@ -88,7 +88,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0001")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.sc.0001")));
         return "redirect:/todo/list";
     }
 
@@ -109,7 +109,7 @@ public class TodoController {
         }
 
         attributes.addFlashAttribute(
-                ResultMessages.success().add(ResultMessage.fromCode("i.td.td.0002")));
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.sc.0002")));
         return "redirect:/todo/list";
     }
 }
