@@ -30,7 +30,7 @@
    label.td.search.date=開始日~期限:
    label.td.search.finished=完了タスクも含む
    
-   # resultMessage
+   # message
    i.td.td.0000=TODOの作成に成功しました.
    i.td.td.0001=TODOの完了に成功しました.
    i.td.td.0002=TODOの削除に成功しました.
