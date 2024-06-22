@@ -46,7 +46,7 @@
 2. [入力チェック(単項目チェック)](/extended/validation/README.md)
 3. [データベースアクセス](/extended/dbaccess/README.md)
 4. [メッセージ管理](/extended/message/README.md)
-5. ロギング
+5. [ロギング](/extended/logging/README.md)
 6. 排他制御
 7. セッション管理
 8. 二重送信防止

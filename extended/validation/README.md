@@ -60,4 +60,4 @@
 - 「タイトル」、「開始日」などのフィールド名や「0」、「30」といったアノテーションの属性値をメッセージにべた書きしてしまうと汎用性が損なわれてしまうため避けましょう
 
 ### 参考
-- https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/Validation.html
+- [TERASOLUNAガイドライン - 4.2. 入力チェック](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/Validation.html)

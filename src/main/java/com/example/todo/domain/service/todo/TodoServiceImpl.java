@@ -85,6 +85,14 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Collection<Todo> findByCriteria(TodoCriteria criteria) {
+        try {
+            StackTraceSample.execute();
+        } catch (Exception e) {
+            ResultMessages messages = ResultMessages.error();
+            messages.add(ResultMessage.fromText("StackTraceSampleException"));
+            throw new BusinessException(messages, e);
+        }
+
         return todoRepository.findByCriteria(criteria);
     }
 }
