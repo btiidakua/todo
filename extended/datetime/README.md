@@ -134,4 +134,4 @@ TODOに開始日、期限の項目を追加しよう！
   余裕のある人は`yyyy/MM/dd`との違いも調べてみてください
 
 ### 参考
-- https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/GeneralFuncDetail/DateAndTime.html
+- [TERASOLUNAガイドライン - 7.3. 日付操作(JSR-310 Date and Time API)](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/GeneralFuncDetail/DateAndTime.html)

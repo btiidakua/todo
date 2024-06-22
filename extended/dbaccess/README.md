@@ -267,5 +267,5 @@ TODOの検索画面を作成しよう！
   このような特殊な扱いの文字を通常の文字として扱うことをエスケープと呼びます
 
 ### 参考
-- https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/DataAccessDetail/DataAccessMyBatis3.html
-- https://www.postgresql.jp/docs/9.0/functions-matching.html
+- [TERASOLUNAガイドライン - 6.2. データベースアクセス（MyBatis3編）](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/DataAccessDetail/DataAccessMyBatis3.html)
+- [PostgreSQL 9.0.4文書 - 9.7. パターンマッチ](https://www.postgresql.jp/docs/9.0/functions-matching.html)

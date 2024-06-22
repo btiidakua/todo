@@ -59,4 +59,4 @@
 - タイトルやラベルはプロジェクトの方針次第ではHTMLに直接記載することもありますが、プロパティファイルに設定することで表記ゆれを防いだり、変更する際の工数削減・変更漏れ対策として有効です
 
 ### 参考
-- https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/MessageManagement.html
+- [TERASOLUNAガイドライン - 4.7. メッセージ管理](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/MessageManagement.html)
