@@ -3,10 +3,12 @@ package com.example.todo.domain.service.todo;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
+import org.terasoluna.gfw.common.exception.SystemException;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import com.example.todo.domain.model.Todo;
@@ -94,5 +96,32 @@ public class TodoServiceImpl implements TodoService {
         }
 
         return todoRepository.findByCriteria(criteria);
+    }
+
+    @Override
+    public void finishOptimistic(String todoId) {
+        Todo todo = todoRepository.findByIdForOptimistic(todoId);
+        todo.setFinished(true);
+        // ロック確認のため5秒停止
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException e) {
+            throw new SystemException("e.xx.fw.9001", e);
+        }
+        if(!todoRepository.updateForOptimistic(todo)) {
+            throw new OptimisticLockingFailureException("楽観ロックエラー");
+        }
+    }
+
+    @Override
+    public void deletePessimistic(String todoId) {
+        Todo todo = todoRepository.findByIdForPessimistic(todoId);
+        // ロック確認のため5秒停止
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException e) {
+            throw new SystemException("e.xx.fw.9001", e);
+        }
+        todoRepository.delete(todo);
     }
 }

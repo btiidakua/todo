@@ -8,6 +8,8 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -145,6 +147,34 @@ public class TodoController {
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0001", new Object[] {"delete"}, Locale.JAPANESE));
 
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("finishOptimistic")
+    public String finishOptimistic(TodoForm form, Model model, RedirectAttributes attributes) {
+        try {
+            todoService.finishOptimistic(form.getTodoId());
+        }  catch (OptimisticLockingFailureException e) {
+            model.addAttribute(ResultMessages.error()
+                    .add(ResultMessage.fromCode("e.td.sc.8002", form.getTodoId())));
+            return list(model);
+        }
+        attributes.addFlashAttribute(
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.sc.0001")));
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("deletePessimistic")
+    public String deletePessimistic(TodoForm form, Model model, RedirectAttributes attributes) {
+        try {
+            todoService.deletePessimistic(form.getTodoId());
+        }  catch (PessimisticLockingFailureException e) {
+            model.addAttribute(ResultMessages.error()
+                    .add(ResultMessage.fromCode("e.td.sc.8004", form.getTodoId())));
+            return list(model);
+        }
+        attributes.addFlashAttribute(
+                ResultMessages.success().add(ResultMessage.fromCode("i.td.sc.0002")));
         return "redirect:/todo/list";
     }
 }

@@ -47,7 +47,7 @@
 3. [データベースアクセス](/extended/dbaccess/README.md)
 4. [メッセージ管理](/extended/message/README.md)
 5. [ロギング](/extended/logging/README.md)
-6. 排他制御
+6. [排他制御](/extended/exclusioncontrol/README.md)
 7. セッション管理
 8. 二重送信防止
 9. 例外ハンドリング

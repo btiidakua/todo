@@ -14,4 +14,8 @@ public interface TodoService {
     void delete(String todoId);
 
     Collection<Todo> findByCriteria(TodoCriteria criteria);
+
+    void finishOptimistic(String todoId);
+
+    void deletePessimistic(String todoId);
 }

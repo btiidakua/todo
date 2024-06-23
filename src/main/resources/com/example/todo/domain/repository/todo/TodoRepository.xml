@@ -49,7 +49,8 @@
             finished,
             created_at,
             start_date,
-            limit_date
+            limit_date,
+            version
         )
         VALUES
         (
@@ -58,7 +59,8 @@
             #{finished},
             #{createdAt},
             #{startDate},
-            #{limitDate}
+            #{limitDate},
+            0
         )
     ]]>
     </insert>
@@ -122,5 +124,52 @@
                     AND limit_date <![CDATA[ <= ]]> #{limitDate}
                 </if>
             </where>
+    </select>
+
+    <select id="findByIdForOptimistic" parameterType="String" resultMap="todoResultMap">
+    <![CDATA[
+        SELECT
+            todo_id,
+            todo_title,
+            finished,
+            created_at,
+            start_date,
+            limit_date,
+            version
+        FROM
+            todo
+        WHERE
+            todo_id = #{todoId}
+    ]]>
+    </select>
+
+    <update id="updateForOptimistic" parameterType="Todo">
+    <![CDATA[
+        UPDATE todo
+        SET
+            finished = #{finished},
+            version = version + 1
+        WHERE
+            todo_id = #{todoId}
+        AND
+            version = #{version}
+    ]]>
+    </update>
+
+    <select id="findByIdForPessimistic" parameterType="String" resultMap="todoResultMap">
+    <![CDATA[
+        SELECT
+            todo_id,
+            todo_title,
+            finished,
+            created_at,
+            start_date,
+            limit_date
+        FROM
+            todo
+        WHERE
+            todo_id = #{todoId}
+        FOR UPDATE NOWAIT
+    ]]>
     </select>
 </mapper>

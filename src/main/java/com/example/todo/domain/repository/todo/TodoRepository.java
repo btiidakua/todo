@@ -18,4 +18,10 @@ public interface TodoRepository {
     long countByFinished(boolean finished);
 
     Collection<Todo> findByCriteria(TodoCriteria criteria);
+
+    Todo findByIdForOptimistic(String todoId);
+
+    boolean updateForOptimistic(Todo todo);
+
+    Todo findByIdForPessimistic(String todoId);
 }
