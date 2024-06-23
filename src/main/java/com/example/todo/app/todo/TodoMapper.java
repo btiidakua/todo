@@ -9,5 +9,6 @@ public interface TodoMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "finished", ignore = true)
     @Mapping(target = "startDate", ignore = true)
+    @Mapping(target = "version", ignore = true)
     Todo map(TodoForm form);
 }

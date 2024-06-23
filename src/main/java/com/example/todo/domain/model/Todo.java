@@ -20,6 +20,8 @@ public class Todo implements Serializable {
 
     private LocalDate limitDate;
 
+    private long version;
+
     public String getTodoId() {
         return todoId;
     }
@@ -66,5 +68,13 @@ public class Todo implements Serializable {
 
     public void setLimitDate(LocalDate limitDate) {
         this.limitDate = limitDate;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }
