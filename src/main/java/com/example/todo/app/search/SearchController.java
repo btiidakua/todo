@@ -31,6 +31,9 @@ public class SearchController {
     @Inject
     MessageSource messageSource;
 
+    @Inject
+    SessionTodoCriteria sessionTodoCriteria;
+
     @ModelAttribute
     public SearchForm setUpForm() {
         SearchForm form = new SearchForm();
@@ -38,9 +41,14 @@ public class SearchController {
     }
 
     @GetMapping
-    public String init() {
+    public String init(Model model) {
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0000", new Object[] {"init"}, Locale.JAPANESE));
+        if (sessionTodoCriteria.isSetFlg()) {
+            Collection<Todo> todos = todoService.findByCriteria(sessionTodoCriteria.getCriteria());
+            model.addAttribute("todos", todos);
+            model.addAttribute(beanMapper.mapCriteria2Form(sessionTodoCriteria.getCriteria()));
+        }
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0001", new Object[] {"init"}, Locale.JAPANESE));
         return "search/search";
@@ -50,11 +58,18 @@ public class SearchController {
     public String result(SearchForm form, Model model) {
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0000", new Object[] {"result"}, Locale.JAPANESE));
-        TodoCriteria criteria = beanMapper.map(form);
+        TodoCriteria criteria = beanMapper.mapForm2Criteria(form);
         Collection<Todo> todos = todoService.findByCriteria(criteria);
         model.addAttribute("todos", todos);
+        sessionTodoCriteria.setCriteria(criteria);
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0001", new Object[] {"result"}, Locale.JAPANESE));
+        return "search/search";
+    }
+
+    @GetMapping("reset")
+    public String reset() {
+        sessionTodoCriteria.clearCriteria();
         return "search/search";
     }
 }

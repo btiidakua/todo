@@ -37,6 +37,9 @@
             <span id="limitDate.errors" th:errors="*{limitDate}" class="text-error"></span>
             <button>Search Todo</button>
         </form>
+        <form th:action="@{search/reset}" method="get">
+            <button>Reset TodoCriteria</button>
+        </form>
     </div>
     <hr />
     <div id="todoList">
