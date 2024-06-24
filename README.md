@@ -48,7 +48,7 @@
 4. [メッセージ管理](/extended/message/README.md)
 5. [ロギング](/extended/logging/README.md)
 6. [排他制御](/extended/exclusioncontrol/README.md)
-7. セッション管理
+7. [セッション管理](/extended/session/README.md)
 8. 二重送信防止
 9. 例外ハンドリング
 
