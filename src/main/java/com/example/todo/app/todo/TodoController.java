@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
+import org.terasoluna.gfw.web.token.transaction.TransactionTokenCheck;
+import org.terasoluna.gfw.web.token.transaction.TransactionTokenType;
 import com.example.todo.app.todo.TodoForm.TodoCreate;
 import com.example.todo.app.todo.TodoForm.TodoDelete;
 import com.example.todo.app.todo.TodoForm.TodoFinish;
@@ -32,6 +34,7 @@ import jakarta.validation.groups.Default;
 
 @Controller
 @RequestMapping("todo")
+@TransactionTokenCheck
 public class TodoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoController.class);
@@ -52,6 +55,7 @@ public class TodoController {
     }
 
     @GetMapping("list")
+    @TransactionTokenCheck(type = TransactionTokenType.BEGIN)
     public String list(Model model) {
         LOGGER.info(
                 messageSource.getMessage("i.td.lg.0000", new Object[] {"list"}, Locale.JAPANESE));
@@ -63,6 +67,7 @@ public class TodoController {
     }
 
     @PostMapping("create")
+    @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String create(@Validated({Default.class, TodoCreate.class}) TodoForm todoForm,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
@@ -94,6 +99,7 @@ public class TodoController {
     }
 
     @PostMapping("finish")
+    @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String finish(@Validated({Default.class, TodoFinish.class}) TodoForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
@@ -122,6 +128,7 @@ public class TodoController {
 
 
     @PostMapping("delete")
+    @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String delete(@Validated({Default.class, TodoDelete.class}) TodoForm form,
             BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
@@ -151,6 +158,7 @@ public class TodoController {
     }
 
     @PostMapping("finishOptimistic")
+    @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String finishOptimistic(TodoForm form, Model model, RedirectAttributes attributes) {
         try {
             todoService.finishOptimistic(form.getTodoId());
@@ -165,6 +173,7 @@ public class TodoController {
     }
 
     @PostMapping("deletePessimistic")
+    @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String deletePessimistic(TodoForm form, Model model, RedirectAttributes attributes) {
         try {
             todoService.deletePessimistic(form.getTodoId());
