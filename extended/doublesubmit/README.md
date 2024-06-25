@@ -5,9 +5,11 @@
 
 ### 画面イメージ
 - トランザクショントークンチェックエラー発生時
+
   ![画面イメージ1](./pic1.PNG "画面イメージ1")
 
 - Finishボタン非活性時
+
   ![画面イメージ2](./pic2.PNG "画面イメージ2")
 
 ### 事前準備
@@ -36,12 +38,9 @@
 - JavaScriptによるボタンの2度押し防止についてはガイドラインに詳細が記載されていないので、自分でWeb検索して方法を調べてください  
   様々な方法がありますが、JQueryというJavaScriptライブラリを使った方法がシンプルです
 - トランザクショントークンチェックが正しく行われているかは、以下の手順で試してみてください
-   1. ブラウザでTODOリストページを開いた状態でF12キーを押下して開発者ツールを起動する
-   2. 開発者ツールのElementsタブ（または要素タブ）でFinishボタンのあるformタグを開く
-   3. `_TRANSACTION_TOKEN`という名前でhiddenのinputタグがあるので、valueを適当に編集する
-   4. ブラウザに戻ってFinishボタンを押下する
-   ![開発者ツール](./pic3.PNG "開発者ツール")
-
+   1. 2つのウインドウでTODOリストページを開く
+   2. 片方のウインドウでFinishボタンを押下する
+   3. Finishボタンを押した側のウインドウで処理完了を確認した後、もう一方のウインドウでFinishボタンを押下する
 
 ### 参考
 - [TERASOLUNAガイドライン - 4.6. 二重送信防止](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/DoubleSubmitProtection.html)
