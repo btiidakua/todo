@@ -1,6 +1,78 @@
 # todoサンプル拡張課題
 ## 日付操作
 ### 概要
+Javaで日付を表すクラスは`java.util.Date`などいろいろありますが、ここでは日時計算で便利な`java.time.LocalDate`の使い方をいくつか説明します。  
+また今回は省略しますが、時間を扱う場合は`java.time.LocalTime`、日時を扱う場合は`java.time.LocalDateTime`がそれぞれ用意されており、基本的に使い方は同じです。
+
+- 日時取得
+  ```java
+  // 現在日付を取得
+  LocalDate nowLocalDate = LocalDate.now();
+
+  // 指定した日時を取得
+  LocalDate fixLocalDate = LocalDate.of(2024, 7, 1);
+  ```
+
+- 日時 ⇒ 文字列の変換
+  ```java
+  // formatterの各設定については参考リンクを参照
+  DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+          .withLocale(Locale.JAPANESE).withResolverStyle(ResolverStyle.STRICT);
+
+  DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d-M-uuuu")
+          .withLocale(Locale.JAPANESE).withResolverStyle(ResolverStyle.STRICT);
+
+  LocalDate localDate = LocalDate.of(2024, 7, 1);
+
+  // 2024/07/01
+  String str1 = formatter1.format(localDate);
+
+  // 1-7-2024
+  String str2 = formatter2.format(localDate);
+  ```
+
+- 文字列 ⇒ 日時の変換
+  ```java
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd")
+          .withLocale(Locale.JAPANESE).withResolverStyle(ResolverStyle.STRICT);
+
+  String str = "2024/07/01";
+
+  // 引数の文字列がformatterで指定したフォーマットに合わない場合、DateTimeParseExceptionが発生する
+  LocalDate localDate = formatter.parse(str);
+  ```
+
+- 日時の計算
+  ```java
+  // 2024/07/01
+  LocalDate localDate = LocalDate.of(2024, 7, 1);
+
+  // 2025/07/01
+  localDate = localDate.plusYears(1);
+
+  // 2025/04/01
+  localDate = localDate.minusMonths(3);
+
+  // 2025/04/11
+  localDate = localDate.plusDays(10);
+  ```
+
+- 日時の比較
+  ```java
+  LocalDate localDate1 = LocalDate.of(2024, 7, 1);
+  LocalDate localDate2 = LocalDate.of(2024, 7, 2);
+
+  // 2024/07/01 < 2024/07/02なのでtrue
+  boolean before = localDate1.isBefore(localDate2);
+
+  // 2024/07/01 > 2024/07/02ではないのでfalse
+  boolean after = localDate1.isAfter(localDate2);
+
+  // 2024/07/01 = 2024/07/02ではないのでfalse
+  boolean equal = localDate1.equals(localDate2);
+  ```
+
+### 演習
 TODOに開始日、期限の項目を追加しよう！
 
 ### 画面イメージ
@@ -112,7 +184,7 @@ TODOに開始日、期限の項目を追加しよう！
 
 > [!IMPORTANT]  
 > 日付の入力項目は`type="date"`とすることでカレンダーによる入力も出来るが、今回は研修の都合上`type="text"`としている
-> 
+>
 > ![カレンダー](./pic3.PNG "カレンダー")
 
 ### 進め方
@@ -135,3 +207,6 @@ TODOに開始日、期限の項目を追加しよう！
 
 ### 参考
 - [TERASOLUNAガイドライン - 7.3. 日付操作(JSR-310 Date and Time API)](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/GeneralFuncDetail/DateAndTime.html)
+- [Qiita - Java8での日付操作](https://qiita.com/motoki1990/items/bf5a25c77f28835b73ed)
+- [Qiita - \[Java\] ResolverStyle.LENIENTを利用して日時をいい感じに扱う](https://qiita.com/m_green14/items/d1eec297a9c0d85bcdf1)
+- [DateTimeFormatter JavaDoc](https://docs.oracle.com/javase/jp/8/docs/api/java/time/format/DateTimeFormatter.html)

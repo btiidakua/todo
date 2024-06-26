@@ -1,6 +1,11 @@
 # todoサンプル拡張課題
 ## メッセージ管理
 ### 概要
+メッセージとは、画面等に表示したりログに出力したりする文言のことを指します。  
+一般的にメッセージはプロジェクトごとに定められたID体系に従って管理されます。  
+メッセージを1つの（あるいは複数の）ファイルに集約して管理することで、メッセージの重複や表記ゆれを防いだり、変更する際の工数削減・変更漏れに有効だったりします。
+
+### 演習
 メッセージをプロパティで管理するようにしよう！
 
 ### 画面イメージ
@@ -20,7 +25,7 @@
    # title
    title.todo.list=Todoリスト
    title.search.search=Todo検索
-   
+
    # label
    label.td.todo.todoTitle=タイトル:
    label.td.todo.startDate=開始日:
@@ -29,7 +34,7 @@
    label.td.search.todoTitle.annotation=(部分一致検索)
    label.td.search.date=開始日~期限:
    label.td.search.finished=完了タスクも含む
-   
+
    # message
    i.td.sc.0000=TODOの作成に成功しました.
    i.td.sc.0001=TODOの完了に成功しました.
@@ -56,7 +61,7 @@
 2. プロパティファイルに設定した結果メッセージが画面に表示されるように修正する
 
 ### ポイント
-- タイトルやラベルはプロジェクトの方針次第ではHTMLに直接記載することもありますが、プロパティファイルに設定することで表記ゆれを防いだり、変更する際の工数削減・変更漏れ対策として有効です
+- タイトルやラベルはプロジェクトの方針次第ではHTMLに直接記載することもありますが、今回はすべてプロパティファイルで管理する方針としています
 
 ### 参考
 - [TERASOLUNAガイドライン - 4.7. メッセージ管理](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/MessageManagement.html)
