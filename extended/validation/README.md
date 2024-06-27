@@ -8,10 +8,10 @@
 
 |種類|説明|例|
 |:---|:---|:---|
-|単項目チェック|単一のフィールドで完結するチェック|<span style="color:red">アカウント名は必須項目です</span><br><label>アカウント名：</label><input type="text">|
-|相関項目チェック|複数のフィールドを比較するチェック|<span style="color:red">パスワードが一致しません</span><br><label>パスワード：</label><input type="password"><br><label>パスワードの確認：</label><input type="password">|
+|単項目チェック|単一のフィールドで完結するチェック|![単項目チェック](./pic4.PNG "単項目チェック")|
+|相関項目チェック|複数のフィールドを比較するチェック|![相関項目チェック](./pic5.PNG "相関項目チェック")|
 
-単項目チェックはフォームクラスの各フィールドにアノテーションを付与することで行われます。  
+単項目チェックはフォームクラスの各フィールドにアノテーションを付与することで何のチェックを実施するか指定します。  
 他にどのようなアノテーションがあるかはガイドラインのAppendixを確認してみてください。
 ```java
 public class UserForm implements Serializable {
@@ -40,14 +40,17 @@ public class UserController {
     ...
 
     @PostMapping("create")
-    // 入力チェックを実施したいformには@Validatedアノテーションを付与し、
-    // エラー情報が格納されるBindingResultを必ず"formの直後の引数"に指定する
+    // formに@Validatedアノテーションを付与することでチェックが実施される
+    // エラー情報が格納されるBindingResultを必ず"formの直後の引数"に指定すること
     public String createUser(@Validated UserForm userForm, BindingResult result) {
         // チェックエラーが発生した場合、result.hasErrors()がtrueになる
         if(result.hasErrors()) {
             // チェックエラーがあったので元の画面に戻す
             return "user/createForm";
         }
+
+        ...
+
         // チェックエラーがなければ次画面に進む
         return "user/createConfirm";
     }
@@ -83,21 +86,7 @@ public class UserController {
 </html>
 ```
 
-<span style="color:red">名前を入力してください</span>
-<br>
-<label for="name">名前:</label>
-<input id="name" type="text">
-<br>
-<span style="color:red">メールアドレス形式で入力してください</span>
-<br>
-<label for="email">メールアドレス:</label>
-<input id="email" type="text" value="aaaaa">
-<br>
-<span style="color:red">0以上、200以下で入力してください</span>
-<br>
-<label for="age">年齢:</label>
-<input id="age" type="text" value="201">
-
+![HTMLイメージ](./pic6.PNG "HTMLイメージ")
 
 ### 演習
 開始日、期限に入力チェックを追加しよう！
