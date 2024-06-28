@@ -1,6 +1,34 @@
 # todoサンプル拡張課題
 ## セッション管理
 ### 概要
+TERASOLUNAではセッション管理の方法として、`@SessionAttributes`アノテーションの使用かSpring FrameworkのsessionスコープのBeanの使用のどちらかが推奨されています。
+
+#### `@SessionAttributes`アノテーション
+ `@SessionAttributes`アノテーションによるセッション管理は、1つのControllerクラス内でデータを持ちまわる場合に使用します。  
+セッションに格納したオブジェクトに対する各操作の方法は以下の通りです。
+
+- セッションに格納するオブジェクトの指定
+
+Controllerクラスに`@SessionAttributes`アノテーションを付与し、`types`で格納するオブジェクトのクラスを指定する
+```java
+@Controller
+@RequestMapping("todo")
+@SessionAttributes(types = { TodoForm.class, Todo.class })
+public class TodoController {
+    ...
+}
+```
+
+- セッションにオブジェクトを格納
+
+`@SessionAttributes`アノテーションの`types`で指定したクラスを初期化するメソッドに`@ModelAttribute`アノテーションを付与する
+```java
+@ModelAttribute(value = "todoForm")
+public TodoForm setUpTodoForm() {
+    return new TodoForm();
+}
+```
+
 
 
 ### 演習
@@ -95,9 +123,9 @@
    ```
 
 ### 進め方
-1. 検索画面の初期表示時、検索条件がセッションに登録されていれば検索を実施する
-2. 検索時、検索条件をセッションに登録する
-3. 検索条件のリセット時、セッションに登録された検索条件をクリアする
+1. 検索画面の初期表示時、検索条件がセッションに格納されていれば検索を実施する
+2. 検索時、検索条件をセッションに格納する
+3. 検索条件のリセット時、セッションに格納された検索条件をクリアする
 
 ### ポイント
 - セッションの保持には「Spring FrameworkのsessionスコープのBean」を利用してください
