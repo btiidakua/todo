@@ -34,7 +34,7 @@ import jakarta.validation.groups.Default;
 
 @Controller
 @RequestMapping("todo")
-@TransactionTokenCheck
+@TransactionTokenCheck("todo")
 public class TodoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TodoController.class);
