@@ -5,14 +5,20 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.terasoluna.gfw.common.exception.BusinessException;
 import com.example.todo.domain.model.Todo;
 import com.example.todo.domain.repository.todo.TodoCriteria;
 import com.example.todo.domain.service.todo.TodoService;
@@ -75,5 +81,13 @@ public class SearchController {
         searchFormFlg = false;
         model.addAttribute(new SearchForm());
         return "search/search";
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ModelAndView handleBusinessException(BusinessException e) {
+        ExtendedModelMap modelMap = new ExtendedModelMap();
+        modelMap.addAttribute(e.getResultMessages());
+        return new ModelAndView("search/search", modelMap);
     }
 }
