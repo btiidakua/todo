@@ -95,11 +95,12 @@ public class TodoServiceImpl implements TodoService {
             throw new BusinessException(messages, e);
         }
 
-        Collection<Todo> result = findByCriteria(criteria);
+        Collection<Todo> result = todoRepository.findByCriteria(criteria);
         if (result.size() == 0) {
-            throw new BusinessException("hoge");
+            throw new BusinessException(
+                    ResultMessages.error().add(ResultMessage.fromCode("e.td.sc.8005")));
         }
-        return todoRepository.findByCriteria(criteria);
+        return result;
     }
 
     @Override

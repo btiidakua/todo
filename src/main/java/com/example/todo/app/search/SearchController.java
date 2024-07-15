@@ -88,6 +88,7 @@ public class SearchController {
     public ModelAndView handleBusinessException(BusinessException e) {
         ExtendedModelMap modelMap = new ExtendedModelMap();
         modelMap.addAttribute(e.getResultMessages());
+        modelMap.addAttribute(new SearchForm());
         return new ModelAndView("search/search", modelMap);
     }
 }
