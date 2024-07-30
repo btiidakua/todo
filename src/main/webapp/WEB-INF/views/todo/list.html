@@ -46,6 +46,7 @@
                 <form th:if="${!todo.finished}" action="/todo/finishOptimistic" th:action="@{/todo/finishOptimistic}" method="post"
                     class="inline">
                     <input type="hidden" name="todoId" th:value="${todo.todoId}" />
+                    <input type="hidden" name="version" th:value="${todo.version}" />
                     <button>Finish</button>
                 </form>
                 <form action="/todo/deletePessimistic" th:action="@{/todo/deletePessimistic}" method="post" class="inline">

@@ -160,8 +160,11 @@ public class TodoController {
     @PostMapping("finishOptimistic")
     @TransactionTokenCheck(type = TransactionTokenType.IN)
     public String finishOptimistic(TodoForm form, Model model, RedirectAttributes attributes) {
+
+        Todo todo = beanMapper.map(form);
+
         try {
-            todoService.finishOptimistic(form.getTodoId());
+            todoService.finishOptimistic(todo);
         }  catch (OptimisticLockingFailureException e) {
             model.addAttribute(ResultMessages.error()
                     .add(ResultMessage.fromCode("e.td.sc.8002", form.getTodoId())));

@@ -34,6 +34,8 @@ public class TodoForm implements Serializable {
     @DateTimeFormat(pattern = "uuuu/MM/dd")
     private LocalDate limitDate;
 
+    private long version;
+
     public String getTodoId() {
         return todoId;
     }
@@ -64,5 +66,13 @@ public class TodoForm implements Serializable {
 
     public void setLimitDate(LocalDate limitDate) {
         this.limitDate = limitDate;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

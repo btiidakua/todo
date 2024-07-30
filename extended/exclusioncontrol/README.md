@@ -107,7 +107,7 @@ WHERE 商品名 = 'お茶'
   ![画面イメージ2](./pic2.PNG "画面イメージ2")
 
 ### 事前準備
-1. `Todo.java`にフィールドを追加する
+1. `Todo.java`、`TodoForm.java`にフィールドを追加する
    ```java
    public class Todo implements Serializable {
        ...
@@ -118,12 +118,20 @@ WHERE 商品名 = 'お茶'
    }
    ```
 
-2. `TodoRepository.java`にメソッドを3つ追加する
+   ```java
+   public class TodoForm implements Serializable {
+       ...
+
+       private long version;
+
+       // Getter/Setterは省略
+   }
+   ```
+
+2. `TodoRepository.java`にメソッドを2つ追加する
    ```java
    public interface TodoRepository {
        ...
-
-       Todo findByIdForOptimistic(String todoId);
 
        boolean updateForOptimistic(Todo todo);
 
@@ -137,7 +145,7 @@ WHERE 商品名 = 'お茶'
 
        ...
 
-       void finishOptimistic(String todoId);
+       void finishOptimistic(Todo todo);
 
        void deletePessimistic(String todoId);
    }
@@ -149,16 +157,8 @@ WHERE 商品名 = 'お茶'
        ...
 
        @Override
-       public void finishOptimistic(String todoId) {
-           Todo todo = todoRepository.findByIdForOptimistic(todoId);
+       public void finishOptimistic(Todo todo) {
            todo.setFinished(true);
-
-           // ロック確認のため5秒停止
-           try {
-               Thread.sleep(5000);
-           } catch(InterruptedException e) {
-               throw new SystemException("e.xx.fw.9001", e);
-           }
 
            if(!todoRepository.updateForOptimistic(todo)) {
                throw new OptimisticLockingFailureException("楽観ロックエラー");
@@ -181,17 +181,6 @@ WHERE 商品名 = 'お茶'
    }
    ```
 
-4. `TodoMapper.java`にアノテーションを追加する
-   ```java
-   @Mapper
-   public interface TodoMapper {
-
-       ...
-       @Mapping(target = "version", ignore = true)
-       Todo map(TodoForm form);
-   }
-   ```
-
 5. `application-messages.properties`にメッセージを追加する
    ```properties
    # message
@@ -209,8 +198,11 @@ WHERE 商品名 = 'お茶'
 
        @PostMapping("finishOptimistic")
        public String finishOptimistic(TodoForm form, Model model, RedirectAttributes attributes) {
+
+           Todo todo = beanMapper.map(form);
+
            try {
-               todoService.finishOptimistic(form.getTodoId());
+               todoService.finishOptimistic(todo);
            } catch (OptimisticLockingFailureException e) {
                model.addAttribute(ResultMessages.error()
                        .add(ResultMessage.fromCode("e.td.sc.8002", form.getTodoId())));
@@ -237,11 +229,13 @@ WHERE 商品名 = 'お茶'
    }
    ```
 
-7. `list.html`のFinish、Deleteボタンの遷移先(th:action)を変更する
+7. `list.html`のFinish、Deleteボタンの遷移先(th:action)を変更する  
+Finishのformにはhiddenでversionを追加する
    ```html
    <form th:if="${!todo.finished}" action="/todo/finish" th:action="@{/todo/finishOptimistic}" method="post"
        class="inline">
        <input type="hidden" name="todoId" th:value="${todo.todoId}" />
+       <input type="hidden" name="version" th:value="${todo.version}" />
        <button>Finish</button>
    </form>
    <form action="/todo/delete" th:action="@{/todo/finishOptimistic}" method="post" class="inline">
@@ -251,9 +245,9 @@ WHERE 商品名 = 'お茶'
    ```
 
 ### 進め方
-1. `TodoRepository.xml`に以下3つのSQLを追加する
-   - `findByIdForOptimistic`：楽観ロック用にVersionカラムを含むデータを取得する
-   - `updateForOptimistic`：データの競合が無ければfinishedカラムを更新する
+1. TODOの登録、取得でversionを取り扱えるように`TodoRepository.xml`で`create`、`findAll`のSQLを修正する
+2. `TodoRepository.xml`に以下2つのSQLを追加する
+   - `updateForOptimistic`：楽観ロックによるデータの競合を確認し、競合が無ければfinishedカラムを更新する
    - `findByIdForPessimistic`：悲観ロックを取得する
 
 ### ポイント

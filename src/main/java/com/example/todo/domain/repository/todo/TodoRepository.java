@@ -19,8 +19,6 @@ public interface TodoRepository {
 
     Collection<Todo> findByCriteria(TodoCriteria criteria);
 
-    Todo findByIdForOptimistic(String todoId);
-
     boolean updateForOptimistic(Todo todo);
 
     Todo findByIdForPessimistic(String todoId);

@@ -34,7 +34,8 @@
             finished,
             created_at,
             start_date,
-            limit_date
+            limit_date,
+            version
         FROM
             todo
     ]]>
@@ -100,17 +101,17 @@
 
     <select id="findByCriteria" parameterType="TodoCriteria" resultMap="todoResultMap">
         <bind name="todoTitleContainingCondition"
-          value="@org.terasoluna.gfw.common.query.QueryEscapeUtils@toContainingCondition(todoTitle)" />
-            SELECT
-                todo_id,
-                todo_title,
-                finished,
-                created_at,
-                start_date,
-                limit_date
-            FROM
-                todo
-            <where>
+            value="@org.terasoluna.gfw.common.query.QueryEscapeUtils@toContainingCondition(todoTitle)" />
+        SELECT
+        todo_id,
+        todo_title,
+        finished,
+        created_at,
+        start_date,
+        limit_date
+        FROM
+        todo
+    <where>
                 <if test="todoTitle != null">
                     todo_title LIKE #{todoTitleContainingCondition} || '%' ESCAPE '~'
                 </if>
@@ -124,23 +125,6 @@
                     AND limit_date <![CDATA[ <= ]]> #{limitDate}
                 </if>
             </where>
-    </select>
-
-    <select id="findByIdForOptimistic" parameterType="String" resultMap="todoResultMap">
-    <![CDATA[
-        SELECT
-            todo_id,
-            todo_title,
-            finished,
-            created_at,
-            start_date,
-            limit_date,
-            version
-        FROM
-            todo
-        WHERE
-            todo_id = #{todoId}
-    ]]>
     </select>
 
     <update id="updateForOptimistic" parameterType="Todo">

@@ -104,15 +104,9 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void finishOptimistic(String todoId) {
-        Todo todo = todoRepository.findByIdForOptimistic(todoId);
+    public void finishOptimistic(Todo todo) {
         todo.setFinished(true);
-        // ロック確認のため5秒停止
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {
-            throw new SystemException("e.xx.fw.9001", e);
-        }
+
         if(!todoRepository.updateForOptimistic(todo)) {
             throw new OptimisticLockingFailureException("楽観ロックエラー");
         }
