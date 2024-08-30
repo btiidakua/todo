@@ -134,10 +134,22 @@ public class UserController {
    </form>
    ```
 
+3. `com.example.todo.app.common`パッケージ配下に`CommonControllerAdvice.java`を作成する
+   ```java
+   @ControllerAdvice
+   public class CommonControllerAdvice {
+
+      @InitBinder
+      public void initBinder(WebDataBinder binder) {
+          binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+      }
+   }
+   ```
+
 ### 進め方
 1. タイトルが1文字以上、30文字以内ではない場合のエラーメッセージを以下に変更する
    > タイトルは1文字以上、30文字以内で入力してください.
-2. 開始日が「数字4桁/数字4桁/数字2桁」の形式ではない場合のバリデーションを追加し、メッセージは以下とする
+2. 開始日が「数字4桁/数字2桁/数字2桁」の形式ではない場合のバリデーションを追加し、メッセージは以下とする
    > 開始日の入力形式が不正です.
 3. 期限が未入力の場合のバリデーションを追加し、メッセージは以下とする
    > 期限は必須項目です.
@@ -162,6 +174,7 @@ public class UserController {
   typeMismatch.java.lang.Integer={0}には数字を入力してください.
   ```
 - 「タイトル」、「開始日」などのフィールド名や「0」、「30」といったアノテーションの属性値をメッセージにべた書きしてしまうと汎用性が損なわれてしまうため避けましょう
+- 期限のチェックについては、フォーマットが違っても日付と判断できる値だとチェックが通ってしまうので、「aaa」など日付に全然関係ない値が入力された場合のみエラーとすればOKです
 
 ### 参考
 - [TERASOLUNAガイドライン - 4.2. 入力チェック](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/Validation.html)

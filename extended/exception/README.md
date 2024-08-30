@@ -83,6 +83,7 @@ e.td.sc.8005=検索結果が0件です.
 
 ### ポイント
 - 実装完了した後、`BusinessException`をスローする箇所、ハンドリングする箇所それぞれにブレークポイントを設定してデバッグモードでサーバ起動し、処理をトレースしてみましょう
+- 検索結果0件エラーだった際、検索条件は復元しなくて良いです
 
 ### 参考
 - [TERASOLUNAガイドライン - 4.3. 例外ハンドリング](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/WebApplicationDetail/ExceptionHandling.html)

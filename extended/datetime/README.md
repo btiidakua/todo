@@ -39,7 +39,7 @@ Javaで日付を表すクラスは`java.util.Date`などいろいろあります
   String str = "2024/07/01";
 
   // 引数の文字列がformatterで指定したフォーマットに合わない場合、DateTimeParseExceptionが発生する
-  LocalDate localDate = formatter.parse(str);
+  LocalDate localDate = LocalDate.parse(str, formatter);
   ```
 
 - 日時の計算
@@ -202,6 +202,7 @@ TODOに開始日、期限の項目を追加しよう！
   - 開始日＝期限：OK
   - 開始日＜期限：OK
 - 一覧の日付フォーマットの変更にはThymeleafのダイアレクトという機能を利用してください
+- 入力値のフォーマットが`uuuu/MM/dd`じゃない場合の考慮は次課題で取り扱うため、ここでは不要です
 - 日付のフォーマットは`uuuu/MM/dd`としてください  
   余裕のある人は`yyyy/MM/dd`との違いも調べてみてください
 
