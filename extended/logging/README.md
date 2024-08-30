@@ -110,6 +110,8 @@
 - プロパティファイルに設定したメッセージの取得には`MessageSource.java`のgetMessageメソッドを利用してください
 - ログ出力処理はControllerに追加する想定ですが、本来はAOPとして実装することが推奨されています  
   AOPについては参考のリンク先を読んだり、自分で調べてみたりしてください
+- Controllerクラスに実装されたメソッドのうち、`@GetMapping`や`@PostMapping`が付与されたメソッドのことをハンドラメソッドと呼びます
+
 
 ### 参考
 - [TERASOLUNAガイドライン - 7.1. ロギング](https://terasolunaorg.github.io/guideline/current/ja/ArchitectureInDetail/GeneralFuncDetail/Logging.html)

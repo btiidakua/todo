@@ -121,9 +121,9 @@ WHERE 商品名 = 'お茶'
    ```java
    public class TodoForm implements Serializable {
        ...
-
+   
        private long version;
-
+   
        // Getter/Setterは省略
    }
    ```
@@ -181,14 +181,14 @@ WHERE 商品名 = 'お茶'
    }
    ```
 
-5. `application-messages.properties`にメッセージを追加する
+4. `application-messages.properties`にメッセージを追加する
    ```properties
    # message
    ...
    e.td.sc.8004=このTODOは他の操作によりロックされています. (id={0})
    ```
 
-6. `TodoController.java`にメソッドを追加する
+5. `TodoController.java`にメソッドを追加する
    ```java
    @Controller
    @RequestMapping("todo")
@@ -229,8 +229,8 @@ WHERE 商品名 = 'お茶'
    }
    ```
 
-7. `list.html`のFinish、Deleteボタンの遷移先(th:action)を変更する  
-Finishのformにはhiddenでversionを追加する
+6. `list.html`のFinish、Deleteボタンの遷移先(th:action)を変更する  
+   Finishのformにはhiddenでversionを追加する
    ```html
    <form th:if="${!todo.finished}" action="/todo/finish" th:action="@{/todo/finishOptimistic}" method="post"
        class="inline">
@@ -238,14 +238,14 @@ Finishのformにはhiddenでversionを追加する
        <input type="hidden" name="version" th:value="${todo.version}" />
        <button>Finish</button>
    </form>
-   <form action="/todo/delete" th:action="@{/todo/finishOptimistic}" method="post" class="inline">
+   <form action="/todo/delete" th:action="@{/todo/deletePessimistic}" method="post" class="inline">
        <input type="hidden" name="todoId" th:value="${todo.todoId}" />
        <button>Delete</button>
    </form>
    ```
 
 ### 進め方
-1. TODOの登録、取得でversionを取り扱えるように`TodoRepository.xml`で`create`、`findAll`のSQLを修正する
+1. TODOの登録、取得でversionを取り扱えるように`TodoRepository.xml`で`create`と`findAll`のSQLを修正する
 2. `TodoRepository.xml`に以下2つのSQLを追加する
    - `updateForOptimistic`：楽観ロックによるデータの競合を確認し、競合が無ければfinishedカラムを更新する
    - `findByIdForPessimistic`：悲観ロックを取得する
@@ -254,6 +254,7 @@ Finishのformにはhiddenでversionを追加する
 - 悲観ロックと楽観ロックの最大の違いは競合を制御するタイミングです  
   悲観ロックはデータの読み込み時にロックをかけ、書き込み時までそのロックを維持します  
   対して、楽観ロックはデータの読み込み時にはロックをかけず、書き込み時に競合をチェックします  
+- 本課題では悲観ロック時のロック解放待ち時間はNOWAITを指定してください
 
 ### 参考
 - [TERASOLUNAガイドライン - 3.2. ドメイン層の実装 - 3.2.6. トランザクション管理について](https://terasolunaorg.github.io/guideline/current/ja/ImplementationAtEachLayer/DomainLayer.html#service-transaction-management)
